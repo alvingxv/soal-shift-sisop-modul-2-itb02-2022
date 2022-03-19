@@ -34,11 +34,7 @@ int main()
     if (fork2 == 0)
     {
       sleep(3);
-      char *argv[] = {
-          "mkdir",
-          "-p",
-          "air",
-          NULL};
+      char *argv[] = {"mkdir", "-p", "air", NULL};
       execv("/bin/mkdir", argv);
     }
     else
@@ -48,10 +44,7 @@ int main()
       int fork3 = fork();
       if (fork3 == 0)
       {
-        char *argv[] = {
-            "unzip",
-            "animal.zip",
-            NULL};
+        char *argv[] = {"unzip", "animal.zip", NULL};
         execv("/bin/unzip", argv);
       }
       else
@@ -61,18 +54,7 @@ int main()
         int fork4 = fork();
         if (fork4 == 0)
         {
-          char *argv[] = {
-              "find",
-              "/home/satrio/modul2/animal/",
-              "-name",
-              "*darat*",
-              "-exec",
-              "mv",
-              "-t",
-              "/home/satrio/modul2/darat/",
-              "{}",
-              "+",
-              NULL};
+          char *argv[] = {"find", "/home/satrio/modul2/animal/", "-name", "*darat*", "-exec", "mv", "-t", "/home/satrio/modul2/darat/", "{}", "+", NULL};
           execv("/bin/find", argv);
         }
         else
@@ -82,18 +64,7 @@ int main()
           int fork5 = fork();
           if (fork5 == 0)
           {
-            char *argv[] = {
-                "find",
-                "/home/satrio/modul2/animal/",
-                "-name",
-                "*air*",
-                "-exec",
-                "mv",
-                "-t",
-                "/home/satrio/modul2/air/",
-                "{}",
-                "+",
-                NULL};
+            char *argv[] = {"find", "/home/satrio/modul2/animal/", "-name", "*air*", "-exec", "mv", "-t", "/home/satrio/modul2/air/", "{}", "+", NULL};
             execv("/bin/find", argv);
           }
           else
@@ -104,23 +75,26 @@ int main()
             if (fork6 == 0)
             {
               chdir("/home/satrio/modul2/darat/");
-              char *argv[] = {
-                  "find",
-                  "-type",
-                  "f",
-                  "-name",
-                  "*bird*",
-                  "-delete",
-                  NULL};
+              char *argv[] = {"find", "-type", "f", "-name", "*bird*", "-delete", NULL};
               execv("/bin/find", argv);
             }
             else
             {
               while ((wait(&status)) > 0)
                 ;
-              chdir("/home/satrio/modul2/air/");
-              char path[100] = "/home/satrio/modul2/air";
-              listFilesRecursively(path);
+              int fork7 = fork();
+              if (fork7 == 0)
+              {
+                chdir("/home/satrio/modul2/animal/");
+                char *argv[] = {"find", "-type", "f", "-name", "*", "-delete", NULL};
+                execv("/bin/find", argv);
+              }
+              else
+              {
+                chdir("/home/satrio/modul2/air/");
+                char path[100] = "/home/satrio/modul2/air";
+                listFilesRecursively(path);
+              }
             }
           }
         }
