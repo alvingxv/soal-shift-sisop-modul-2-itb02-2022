@@ -221,14 +221,19 @@ Pertama, kita cek dahulu apakah direktori tersebut ada, jika tidak maka akan ret
 
 ## Screenshot file
 - Screenshot direktori **modul 2**
+
 ![1](https://raw.githubusercontent.com/Satriokml/images/main/Praktikum%202/modul2.png)
 - Screenshot direktori **animal**
+
 ![2](https://raw.githubusercontent.com/Satriokml/images/main/Praktikum%202/animal.png)
 - Screenshot direktori **darat**
+
 ![3](https://raw.githubusercontent.com/Satriokml/images/main/Praktikum%202/darat.png)
 - Screenshot direktori **air**
+
 ![4](https://raw.githubusercontent.com/Satriokml/images/main/Praktikum%202/air.png)
 - Screenshot file `list.txt`
+
 ![5](https://raw.githubusercontent.com/Satriokml/images/main/Praktikum%202/list.png)
 
 ## Kendala yang ditemui
