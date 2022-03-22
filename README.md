@@ -1,6 +1,6 @@
-# soal-shift-sisop-modul-1-itb02-202
+# soal-shift-sisop-modul-2-itb02-202
 
-## Laporan Pengerjaan Modul 1 Praktikum Sistem Operasi
+## Laporan Pengerjaan Modul 2 Praktikum Sistem Operasi
 
 ### Nama Anggota Kelompok
 
