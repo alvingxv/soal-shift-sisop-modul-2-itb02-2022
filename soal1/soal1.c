@@ -201,24 +201,22 @@ int main()
                 while ((wait(&status)) > 0)
                     ;
                 sleep(3);
-                int i = 0;
-                int f = -90;
+                int i = 0, f= -90, primogems =79000;
                 char *jam;
                 char waktu[20];
                 int persepuluh = 0;
+
                 FILE *fp;
                 char buffer[4096];
                 struct json_object *parsed_json;
                 struct json_object *rarity;
                 struct json_object *name;
+
                 FILE *fp2;
                 char buffer2[4096];
                 struct json_object *parsed_json2;
                 struct json_object *rarity2;
                 struct json_object *name2;
-                time_t current_time;
-                struct tm *time_info;
-                int primogems = 79000;
                 while (primogems > 0)
                 {
                     if (i % 2 == 0) // genap
@@ -298,7 +296,7 @@ int main()
             childsetelahjam = fork();
             if (childsetelahjam == 0)
             {
-                char *zipAkhir[] = {"zip", "-r", "-P", "not_safe_for_wibu.zip", "gacha_gacha", NULL};
+                char *zipAkhir[] = {"zip", "-r", "-P", "satuduatiga", "not_safe_for_wibu.zip", "gacha_gacha", NULL};
                 execv("/bin/zip", zipAkhir);
             }
             else
