@@ -113,7 +113,7 @@ int main()
         exit(EXIT_FAILURE);
     }
 
-    if ((chdir("/")) < 0)
+    if ((chdir("/home/alvin/Sistem_Operasi/Modul2/rundisini")) < 0)
     {
         exit(EXIT_FAILURE);
     }
@@ -151,7 +151,7 @@ int main()
                     {
                         if (fork() == 0)
                             continue;
-                        sleep(1);
+                        sleep(10);
                         execv("/bin/wget", argv[x]);
                     }
                 }
@@ -176,7 +176,7 @@ int main()
                         {
                             if (fork() == 0)
                                 continue;
-                            sleep(3);
+                            sleep(10);
                             execv("/bin/unzip", argv[x]);
                         }
                     }
