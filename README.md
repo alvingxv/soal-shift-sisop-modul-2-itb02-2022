@@ -388,6 +388,176 @@ Kendala yang dihadapi adalah tidak dapat merandom 10 file dalam waktu 1 detik, s
 #### **HASIL DAEMON**
 ![6](https://user-images.githubusercontent.com/83297238/159967331-47b6cf5b-c4df-4a61-8927-e963ef60b5ed.png)
 
+# Soal 2
+
+---
+Japrun bekerja di sebuah perusahaan dibidang review industri perfilman, karena kondisi saat ini sedang pandemi Covid-19, dia mendapatkan sebuah proyek untuk mencari drama korea yang tayang dan sedang ramai di Layanan Streaming Film untuk diberi review. Japrun sudah mendapatkan beberapa foto-foto poster serial dalam bentuk zip untuk diberikan review, tetapi didalam zip tersebut banyak sekali poster drama korea dan dia harus memisahkan poster-poster drama korea tersebut tergantung dengan kategorinya. Japrun merasa kesulitan untuk melakukan pekerjaannya secara manual, kamu sebagai programmer diminta Japrun untuk menyelesaikan pekerjaannya.
+
+A. Hal pertama yang perlu dilakukan oleh program adalah mengextract zip yang diberikan ke dalam folder “/home/[user]/shift2/drakor”. Karena atasan Japrun teledor, dalam zip tersebut bisa berisi folder-folder yang tidak penting, maka program harus bisa membedakan file dan folder sehingga dapat memproses file yang seharusnya dikerjakan dan menghapus folder-folder yang tidak dibutuhkan.
+
+B. Poster drama korea perlu dikategorikan sesuai jenisnya, maka program harus membuat folder untuk setiap jenis drama korea yang ada dalam zip. Karena kamu tidak mungkin memeriksa satu-persatu manual, maka program harus membuatkan folder-folder yang dibutuhkan sesuai dengan isi zip.
+Contoh: Jenis drama korea romance akan disimpan dalam “/drakor/romance”, jenis drama korea action akan disimpan dalam “/drakor/action” , dan seterusnya.
+
+C. Setelah folder kategori berhasil dibuat, program akan memindahkan poster ke folder dengan kategori yang sesuai dan di rename dengan nama.
+Contoh: “/drakor/romance/start-up.png”.
+
+D. Karena dalam satu foto bisa terdapat lebih dari satu poster maka foto harus di pindah ke masing-masing kategori yang sesuai. Contoh: foto dengan nama “start-up;2020;romance_the-k2;2016;action.png” dipindah ke folder “/drakor/romance/start-up.png” dan “/drakor/action/the-k2.png”. (note 19/03: jika dalam satu foto ada lebih dari satu poster maka foto tersebut dicopy jadi akhirnya akan jadi 2 foto)
+
+E. Di setiap folder kategori drama korea buatlah sebuah file "data.txt" yang berisi nama dan tahun rilis semua drama korea dalam folder tersebut, jangan lupa untuk sorting list serial di file ini berdasarkan tahun rilis (Ascending). 
+##### Note dan Ketentuan Soal:
+File zip berada dalam drive modul shift ini bernama drakor.zip
+File yang penting hanyalah berbentuk .png
+Setiap foto poster disimpan sebagai nama foto dengan format [nama]:[tahun rilis]:[kategori]. Jika terdapat lebih dari satu drama dalam poster, dipisahkan menggunakan underscore(_).
+Tidak boleh menggunakan fungsi system(), mkdir(), dan rename() yang tersedia di bahasa C.
+Gunakan bahasa pemrograman C (Tidak boleh yang lain).
+Folder shift2, drakor, dan kategori dibuatkan oleh program (Tidak Manual).
+[user] menyesuaikan nama user linux di os anda.
+
+## Penjelasan Code Soal 1
+Pada soal ini kita akan diminta untuk mengunzip suatu file kemudian memasukkan hasil extractnya ke setiap folder berbeda tergantung kategori yang terdapat pada nama file. Kemudian pada setiap foldernya akan terdapat file .txt sebagai data nama dan tahun rilis drama yang terdapat pada folder tersebut
+
+## A
+
+Pada soal A ini kami diminta untuk mengunzip file `drakor.zip` kemudian folder yang tidak penting dihapus sehingga hanya tersisa file berisi poster drama korea. Kami membuat fungsi unzip untuk membantu mengekstrak file zip dengan tambahan argumen *.png agar folder tidak penting tidak ikut terkestrak.
+```c
+void unzip() {
+	int status;
+	pid_t child_id = fork();
+	if (child_id == 0) {
+		char *argv[] = {"unzip", "-j", "drakor.zip", "*.png", "-d", "/home/rachmita/shift2/drakor", NULL};
+		execv("/usr/bin/unzip", argv);
+	} else {
+		((wait(&status)) > 0);
+	}
+}
+```
+ Pada soal ini kami juga menggunakan fungsi createFolder untuk membuat folder yang menampung hasil extract dari `drakor.zip`. 
+```c
+void createFolder(char *dest) {
+	int status;
+	pid_t child_id = fork();
+	if (child_id == 0) {
+		char *argv[] = {"mkdir", "-p", dest, NULL};
+		execv("/usr/bin/mkdir", argv);
+	} else {
+		((wait(&status)) > 0);
+	}
+}
+```
+## B
+
+Pada soal B, persoalan yang diberikan yaitu membuat folder untuk setiap kategori drama yang ada di poster. Folder ini nantinya akan berada pada folder drakor.
+```c
+void fileRekursif(char *basePath) {
+	char path[1000];
+	struct dirent *dp;
+	DIR *dir = opendir(basePath);
+
+	if (!dir)
+		return;
+
+	while ((dp = readdir(dir)) != NULL) {
+		if (strcmp(dp->d_name, ".") != 0 && strcmp(dp->d_name, "..") != 0){
+			char tempFol[100];
+			char mkFol[100] = "/home/rachmita/shift2/drakor/";
+			char drakor1[100] = "/home/rachmita/shift2/drakor/";
+			char drakor2[1000] = "/home/rachmita/shift2/drakor/";
+			char drakor3[1000] = "/home/rachmita/shift2/drakor/";
+			char temp[1000], temp2[1000], temp3[1000], temp4[1000], getJudul[1000], 
+			getTahun[1000], getKate[1000], getFol[100], getJudul2[100], getTahun2[1000], getKate2[1000], 
+			getFol2[100], getJudul3[100], getTahun3[1000], getKate3[1000], getFol3[100];
+			char *token, *token2, *token3;
+			strcpy(tempFol, getFol);
+			strcat(mkFol, tempFol);
+			createFolder(mkFol);
+```
+## C
+
+Setalah folder kategori drama berhasil dibuat, pada soal C akan dimasukkan gambar poster drama sesuai dengan kategorinya. Selain itu, file gambar poster juga perlu direname yang semula `judul;tahun rilis;kategori.png` menjadi `judul.png`
+```c
+if (!(strstr(dp->d_name, "_"))) {
+				strcpy(temp, dp->d_name); //school2021;2021;school.png
+				token = strtok(temp, ";"); //school2021
+				strcpy(getJudul, token);
+				token = strtok(NULL, ";"); //2021
+				strcpy(getTahun, token);
+				token = strtok(NULL, ";"); //school.png
+				strcpy(getKate, token);
+				token = strtok(getKate, ".");//school
+				strcpy(getFol, token);
+				strcat(drakor1, getFol);
+				strcat(drakor1, "/");
+				strcat(drakor1, getJudul);
+				strcat(drakor1, ".png");
+			}
+			copy(listFile, drakor1);
+			copy(listFile, drakor2);
+			copy(listFile, drakor3);
+```
+## D
+
+Pada gambar yang diextract memiliki isi yang berbeda-beda, terdapat gambar yang berisi 1 poster dan 2 poster drama. Sehingga untuk kasus dengan 1 gambar berisi 2 foto kita perlu memasukkan gambar tersebut ke dalam 2 folder berbeda sesuai kategori masing-masing.
+```c
+if (strstr(dp->d_name, "_")) {
+				strcpy(temp3, dp->d_name); //start-up;2020;romance_thek2;2016;action.png
+				token3 = strtok(temp3, ";"); //start-up
+				strcpy(getJudul2, token3);
+				token3 = strtok(NULL, ";"); //2020
+				strcpy(getTahun2, token3);
+				token3 = strtok(NULL, ";"); //romance_thek2;2016;action.png
+				strcpy(getKate2, token3);
+				token3 = strtok(getKate2, "_");//romance
+				strcpy(getFol2, token3);
+				strcat(drakor2, getFol2);
+				strcat(drakor2, "/");
+				strcat(drakor2, getJudul2);
+				strcat(drakor2, ".png");
+				
+				strcpy(temp2, dp->d_name); //start-up;2020;romance_thek2;2016;action.png
+				token2 = strtok(temp2, "_"); //start-up;2020;romance
+				token2 = strtok(NULL, "_");	 //thek2;2016;action.png
+				strcpy(temp4, token2);
+				token2 = strtok(temp4, ";"); //thek2
+				strcpy(getJudul3, token2);
+				token2 = strtok(NULL, ";"); //2016
+				strcpy(getTahun3, token2);
+				token2 = strtok(NULL, ";"); //action.png
+				strcpy(getKate3, token2);
+				token2 = strtok(getKate3, ".");//action
+				strcpy(getFol3, token2);
+				strcat(drakor3, getFol3);
+				strcat(drakor3, "/");
+				strcat(drakor3, getJudul3);
+				strcat(drakor3, ".png");
+			}
+```
+## E
+
+Soal E ini meminta kita untuk menambahkan file `data.txt` yang berisi list nama dan tahun rilis dari drakor pada setiap foldernya.
+```c
+	FILE *data;
+			char fname[100];
+			strcpy(fname, mkFol);
+			strcat(fname, "/data.txt");
+			data = fopen(fname, "a+");
+			if (!(strstr(dp->d_name, "_"))) {
+				fprintf(data, "nama : %s\n", getJudul);
+				fprintf(data, "tahun rilis : %s\n\n", getTahun);
+			}
+
+```
+
+## Kendala yang dihadapi
+Kendala yang dihadapi yaitu ketika akan memasukkan judul dan tahun rilis pada file `data.txt` beberapa judul drama tidak tertulis. Hal ini karena terdapat kesusahan dalam parsing nama file untuk gambar yang berisi dua poster.
+## Screenshot hasil soal 2
+Berikut adalah screenshoot `/home/rachmita/shift2/drakor` yang berisi folder kategori drama yang telah diextract
+![1](https://raw.githubusercontent.com/mitaannisa/.github-images/main/folder%20drakor.PNG)
+Berikut adalah tree dari `/shift2/drakor/`
+![2](https://raw.githubusercontent.com/mitaannisa/.github-images/main/tree.PNG)
+Dalam setiap folder akan berisi poster drama dan file data.txt, seperti contoh di bawah yaitu dalam folder action
+![3](https://raw.githubusercontent.com/mitaannisa/.github-images/main/folder%20action.PNG)
+Kemudian apabila kita buka data.txt akan berisi nama dan tahun rilis drama yang ada pada folder action
+![4](https://raw.githubusercontent.com/mitaannisa/.github-images/main/datatxt%20action.PNG)
 
 # Soal 3
 
