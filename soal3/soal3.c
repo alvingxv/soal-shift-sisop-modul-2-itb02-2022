@@ -12,24 +12,19 @@
 void listFilesRecursively(char *path);
 int main()
 {
-  chdir("/home/satrio/modul2/");
+  chdir("/home/kali/modul2/");
 
   int fork0 = fork();
   int status;
 
   if (fork0 == 0)
   {
-    char *argv[] = {
-        "mkdir",
-        "-p",
-        "darat",
-        NULL};
+    char *argv[] = {"mkdir","-p","darat",NULL};
     execv("/bin/mkdir", argv);
   }
   else
   {
-    while ((wait(&status)) > 0)
-      ;
+    while ((wait(&status)) > 0);
     int fork2 = fork();
     if (fork2 == 0)
     {
@@ -39,8 +34,7 @@ int main()
     }
     else
     {
-      while ((wait(&status)) > 0)
-        ;
+      while ((wait(&status)) > 0);
       int fork3 = fork();
       if (fork3 == 0)
       {
@@ -49,50 +43,46 @@ int main()
       }
       else
       {
-        while ((wait(&status)) > 0)
-          ;
+        while ((wait(&status)) > 0);
         int fork4 = fork();
         if (fork4 == 0)
         {
-          char *argv[] = {"find", "/home/satrio/modul2/animal/", "-name", "*darat*", "-exec", "mv", "-t", "/home/satrio/modul2/darat/", "{}", "+", NULL};
+          char *argv[] = {"find", "/home/kali/modul2/animal/", "-name", "*darat*", "-exec", "mv", "-t", "/home/kali/modul2/darat/", "{}", "+", NULL};
           execv("/bin/find", argv);
         }
         else
         {
-          while ((wait(&status)) > 0)
-            ;
+          while ((wait(&status)) > 0);
           int fork5 = fork();
           if (fork5 == 0)
           {
-            char *argv[] = {"find", "/home/satrio/modul2/animal/", "-name", "*air*", "-exec", "mv", "-t", "/home/satrio/modul2/air/", "{}", "+", NULL};
+            char *argv[] = {"find", "/home/kali/modul2/animal/", "-name", "*air*", "-exec", "mv", "-t", "/home/kali/modul2/air/", "{}", "+", NULL};
             execv("/bin/find", argv);
           }
           else
           {
-            while ((wait(&status)) > 0)
-              ;
+            while ((wait(&status)) > 0);
             int fork6 = fork();
             if (fork6 == 0)
             {
-              chdir("/home/satrio/modul2/darat/");
-              char *argv[] = {"find", "-type", "f", "-name", "*bird*", "-delete", NULL};
+              chdir("/home/kali/modul2/animal/");
+              char *argv[] = {"find", "-type", "f", "-name", "*", "-delete", NULL};
               execv("/bin/find", argv);
             }
             else
             {
-              while ((wait(&status)) > 0)
-                ;
+              while ((wait(&status)) > 0);
               int fork7 = fork();
               if (fork7 == 0)
               {
-                chdir("/home/satrio/modul2/animal/");
-                char *argv[] = {"find", "-type", "f", "-name", "*", "-delete", NULL};
+                chdir("/home/kali/modul2/animal/darat");
+                char *argv[] = {"find", "-type", "f", "-name", "*bird*", "-delete", NULL};
                 execv("/bin/find", argv);
               }
               else
               {
-                chdir("/home/satrio/modul2/air/");
-                char path[100] = "/home/satrio/modul2/air";
+                chdir("/home/kali/modul2/air/");
+                char path[100] = "/home/kali/modul2/air";
                 listFilesRecursively(path);
               }
             }
@@ -105,7 +95,7 @@ int main()
 
 void listFilesRecursively(char *basePath)
 {
-  char path[100] = "/home/satrio/modul2/air";
+  char path[100] = "/home/kali/modul2/air";
   struct stat fs;
   struct stat info;
   struct dirent *dp;
@@ -132,8 +122,6 @@ void listFilesRecursively(char *basePath)
         fprintf(fptr, "r");
       if (fs.st_mode & S_IWUSR)
         fprintf(fptr, "w");
-      if (fs.st_mode & S_IXUSR)
-        fprintf(fptr, "e");
 
       fprintf(fptr, "_");
       fprintf(fptr, "%s\n", dp->d_name);
