@@ -390,6 +390,7 @@ Kendala yang dihadapi adalah tidak dapat merandom 10 file dalam waktu 1 detik, s
 
 # Soal 2
 
+---
 Japrun bekerja di sebuah perusahaan dibidang review industri perfilman, karena kondisi saat ini sedang pandemi Covid-19, dia mendapatkan sebuah proyek untuk mencari drama korea yang tayang dan sedang ramai di Layanan Streaming Film untuk diberi review. Japrun sudah mendapatkan beberapa foto-foto poster serial dalam bentuk zip untuk diberikan review, tetapi didalam zip tersebut banyak sekali poster drama korea dan dia harus memisahkan poster-poster drama korea tersebut tergantung dengan kategorinya. Japrun merasa kesulitan untuk melakukan pekerjaannya secara manual, kamu sebagai programmer diminta Japrun untuk menyelesaikan pekerjaannya.
 
 A. Hal pertama yang perlu dilakukan oleh program adalah mengextract zip yang diberikan ke dalam folder “/home/[user]/shift2/drakor”. Karena atasan Japrun teledor, dalam zip tersebut bisa berisi folder-folder yang tidak penting, maka program harus bisa membedakan file dan folder sehingga dapat memproses file yang seharusnya dikerjakan dan menghapus folder-folder yang tidak dibutuhkan.
@@ -412,7 +413,7 @@ Gunakan bahasa pemrograman C (Tidak boleh yang lain).
 Folder shift2, drakor, dan kategori dibuatkan oleh program (Tidak Manual).
 [user] menyesuaikan nama user linux di os anda.
 
-## Penjelasan Code Soal 2
+## Penjelasan Code Soal 1
 Pada soal ini kita akan diminta untuk mengunzip suatu file kemudian memasukkan hasil extractnya ke setiap folder berbeda tergantung kategori yang terdapat pada nama file. Kemudian pada setiap foldernya akan terdapat file .txt sebagai data nama dan tahun rilis drama yang terdapat pada folder tersebut
 
 ## A
@@ -470,6 +471,7 @@ void fileRekursif(char *basePath) {
 			strcat(mkFol, tempFol);
 			createFolder(mkFol);
 ```
+Pada kode di atas terdapat array tempFol yang dibuat untuk menampung  hasil copy dari `dp->d_name` yang berisi list file seperti school2021;2021;school.png. Selanjutnya kami menggunakan strtok untuk mendapatkan kategori dari dramanya contohnya school. Setelah itu menggunakan fungsi createFolder() yang sebelumnya untuk membuat folder baru tiap kategori dramanya
 ## C
 
 Setalah folder kategori drama berhasil dibuat, pada soal C akan dimasukkan gambar poster drama sesuai dengan kategorinya. Selain itu, file gambar poster juga perlu direname yang semula `judul;tahun rilis;kategori.png` menjadi `judul.png`
@@ -493,6 +495,7 @@ if (!(strstr(dp->d_name, "_"))) {
 			copy(listFile, drakor2);
 			copy(listFile, drakor3);
 ```
+Pada soal C ini kita memisahkan judul drama, tahun rilis drama, dan kategori dramanya kemudian akan disimpan ke masing masing array yaitu `getJudul`,`getTahun`,`getKate`,dan `token` sebagai tempat penyimpanan sementara.
 ## D
 
 Pada gambar yang diextract memiliki isi yang berbeda-beda, terdapat gambar yang berisi 1 poster dan 2 poster drama. Sehingga untuk kasus dengan 1 gambar berisi 2 foto kita perlu memasukkan gambar tersebut ke dalam 2 folder berbeda sesuai kategori masing-masing.
@@ -530,6 +533,7 @@ if (strstr(dp->d_name, "_")) {
 				strcat(drakor3, ".png");
 			}
 ```
+Isi dari soal D kurang lebih sama dari soal C namun pada soal ini dilakukan parsing dua kali dengan membagi bagian depan dan bagian belakang menggunakan `_` sebagai pemisahnya.
 ## E
 
 Soal E ini meminta kita untuk menambahkan file `data.txt` yang berisi list nama dan tahun rilis dari drakor pada setiap foldernya.
@@ -543,8 +547,8 @@ Soal E ini meminta kita untuk menambahkan file `data.txt` yang berisi list nama 
 				fprintf(data, "nama : %s\n", getJudul);
 				fprintf(data, "tahun rilis : %s\n\n", getTahun);
 			}
-
 ```
+Pada kode di atas kami menggunakan fungsi fopen dengan mode a+ sehingga dapat mengisi data.txt yang terdapat dalam folder kategori setiap drama. File data.txt tersebut berisi nama dan tahun rilis dari drama.
 
 ## Kendala yang dihadapi
 Kendala yang dihadapi yaitu ketika akan memasukkan judul dan tahun rilis pada file `data.txt` beberapa judul drama tidak tertulis. Hal ini karena terdapat kesusahan dalam parsing nama file untuk gambar yang berisi dua poster.
