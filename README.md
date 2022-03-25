@@ -390,7 +390,6 @@ Kendala yang dihadapi adalah tidak dapat merandom 10 file dalam waktu 1 detik, s
 
 # Soal 2
 
----
 Japrun bekerja di sebuah perusahaan dibidang review industri perfilman, karena kondisi saat ini sedang pandemi Covid-19, dia mendapatkan sebuah proyek untuk mencari drama korea yang tayang dan sedang ramai di Layanan Streaming Film untuk diberi review. Japrun sudah mendapatkan beberapa foto-foto poster serial dalam bentuk zip untuk diberikan review, tetapi didalam zip tersebut banyak sekali poster drama korea dan dia harus memisahkan poster-poster drama korea tersebut tergantung dengan kategorinya. Japrun merasa kesulitan untuk melakukan pekerjaannya secara manual, kamu sebagai programmer diminta Japrun untuk menyelesaikan pekerjaannya.
 
 A. Hal pertama yang perlu dilakukan oleh program adalah mengextract zip yang diberikan ke dalam folder “/home/[user]/shift2/drakor”. Karena atasan Japrun teledor, dalam zip tersebut bisa berisi folder-folder yang tidak penting, maka program harus bisa membedakan file dan folder sehingga dapat memproses file yang seharusnya dikerjakan dan menghapus folder-folder yang tidak dibutuhkan.
@@ -413,7 +412,7 @@ Gunakan bahasa pemrograman C (Tidak boleh yang lain).
 Folder shift2, drakor, dan kategori dibuatkan oleh program (Tidak Manual).
 [user] menyesuaikan nama user linux di os anda.
 
-## Penjelasan Code Soal 1
+## Penjelasan Code Soal 2
 Pada soal ini kita akan diminta untuk mengunzip suatu file kemudian memasukkan hasil extractnya ke setiap folder berbeda tergantung kategori yang terdapat pada nama file. Kemudian pada setiap foldernya akan terdapat file .txt sebagai data nama dan tahun rilis drama yang terdapat pada folder tersebut
 
 ## A
