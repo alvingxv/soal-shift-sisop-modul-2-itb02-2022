@@ -470,7 +470,7 @@ void fileRekursif(char *basePath) {
 			strcat(mkFol, tempFol);
 			createFolder(mkFol);
 ```
-Pada kode di atas terdapat array tempFol yang dibuat untuk menampung  hasil copy dari `dp->d_name` yang berisi list file seperti school2021;2021;school.png. Selanjutnya kami menggunakan strtok untuk mendapatkan kategori dari dramanya contohnya school. Setelah itu menggunakan fungsi createFolder() yang sebelumnya untuk membuat folder baru tiap kategori dramanya
+Pada kode di atas terdapat array tempFol yang dibuat untuk menampung  hasil copy dari `dp->d_name` yang berisi list file seperti school2021;2021;school.png. Selanjutnya kami menggunakan `strtok` untuk mendapatkan kategori dari dramanya contohnya school. Setelah itu menggunakan fungsi createFolder() yang sebelumnya untuk membuat folder baru tiap kategori dramanya
 ## C
 
 Setalah folder kategori drama berhasil dibuat, pada soal C akan dimasukkan gambar poster drama sesuai dengan kategorinya. Selain itu, file gambar poster juga perlu direname yang semula `judul;tahun rilis;kategori.png` menjadi `judul.png`
@@ -552,13 +552,13 @@ Pada kode di atas kami menggunakan fungsi fopen dengan mode a+ sehingga dapat me
 ## Kendala yang dihadapi
 Kendala yang dihadapi yaitu ketika akan memasukkan judul dan tahun rilis pada file `data.txt` beberapa judul drama tidak tertulis. Hal ini karena terdapat kesusahan dalam parsing nama file untuk gambar yang berisi dua poster.
 ## Screenshot hasil soal 2
-Berikut adalah screenshoot `/home/rachmita/shift2/drakor` yang berisi folder kategori drama yang telah diextract
+- Berikut adalah screenshoot `/home/rachmita/shift2/drakor` yang berisi folder kategori drama yang telah diextract
 ![1](https://raw.githubusercontent.com/mitaannisa/.github-images/main/folder%20drakor.PNG)
-Berikut adalah tree dari `/shift2/drakor/`
+- Berikut adalah tree dari `/shift2/drakor/`
 ![2](https://raw.githubusercontent.com/mitaannisa/.github-images/main/tree.PNG)
-Dalam setiap folder akan berisi poster drama dan file data.txt, seperti contoh di bawah yaitu dalam folder action
+- Dalam setiap folder akan berisi poster drama dan file data.txt, seperti contoh di bawah yaitu dalam folder action
 ![3](https://raw.githubusercontent.com/mitaannisa/.github-images/main/folder%20action.PNG)
-Kemudian apabila kita buka data.txt akan berisi nama dan tahun rilis drama yang ada pada folder action
+- Kemudian apabila kita buka data.txt akan berisi nama dan tahun rilis drama yang ada pada folder action
 ![4](https://raw.githubusercontent.com/mitaannisa/.github-images/main/datatxt%20action.PNG)
 
 # Soal 3
